@@ -1,8 +1,7 @@
-const orderHeader = document.querySelector('.order')
-function renderOrder(order){
-
-  console.log(order)
-  orderHeader.textContent = `Id:${order.id} - Status:${order.status}`  
+const orderHeader = document.querySelector(".order");
+function renderOrder(order) {
+  console.log(order);
+  orderHeader.textContent = `Id:${order.id} - Status:${order.status}`;
 }
 
 // Short Polling
@@ -18,7 +17,6 @@ function renderOrder(order){
 // }
 
 // watchOrder();
-
 
 // Long Pollig
 // async function longPollOrder(id) {
@@ -42,7 +40,35 @@ function renderOrder(order){
 //   }
 // }
 
-
 // longPollOrder(123)
 
+// SSE
+async function recieveEvent(id) {
+  let eventSource;
+  try {
+    // Create an EventSource to listen to SSE events
+    eventSource = new EventSource(`/orders/${id}/events`);
 
+    eventSource.onopen = () => {
+      console.log("SSE connection opened");
+    };
+
+    // Handle incoming messages
+    eventSource.addEventListener("order", (event) => {
+      const data = JSON.parse(event.data);
+      renderOrder(data);
+    });
+    // Handle errors
+    eventSource.onerror = (error) => {
+      console.error("Error connecting to SSE server.", error);
+      eventSource.close();
+    };
+  } catch (error) {
+    console.log(error);
+    if (eventSource) {
+      eventSource.close();
+    }
+  }
+}
+
+recieveEvent(123);
