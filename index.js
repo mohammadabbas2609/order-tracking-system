@@ -54,6 +54,22 @@ const orders = {
 //   }
 
 //   orderWaiters.push(res);
+
+  // req.on("close", () => {
+  //     const waitersForOrder = waiters.get(id);
+
+  //     if (!waitersForOrder) return;
+
+  //     const index = waitersForOrder.indexOf(res);
+
+  //     if (index !== -1) {
+  //       waitersForOrder.splice(index, 1);
+  //     }
+
+  //     if (waitersForOrder.length === 0) {
+  //       waiters.delete(id);
+  //     }
+  //   });
 // })
 
 // app.post("/orders/:id/status", (req, res) => {
