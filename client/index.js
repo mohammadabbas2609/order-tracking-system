@@ -5,7 +5,7 @@ function renderOrder(order){
   orderHeader.textContent = `Id:${order.id} - Status:${order.status}`  
 }
 
-Short Polling
+// Short Polling
 // async function watchOrder() {
 //   while (true) {
 //     const response = await fetch("/orders/123");
@@ -18,5 +18,31 @@ Short Polling
 // }
 
 // watchOrder();
+
+
+// Long Pollig
+// async function longPollOrder(id) {
+//   while (true) {
+//     try {
+//       const response = await fetch(
+//         `/order/${id}/updates`
+//       );
+
+//       const order = await response.json();
+
+//       renderOrder(order);
+
+//     } catch (err) {
+//       console.error(err);
+
+//       await new Promise(resolve =>
+//         setTimeout(resolve, 2000)
+//       );
+//     }
+//   }
+// }
+
+
+// longPollOrder(123)
 
 

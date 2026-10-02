@@ -13,31 +13,72 @@ const orders = {
 };
 
 
-app.get('/', (req,res) => {
-  
-})
+// Short Polling
 
-app.get("/orders/:id", (req, res) => {
-  const order = orders[req.params.id];
+// app.get("/orders/:id", (req, res) => {
+//   const order = orders[req.params.id];
 
-  if (!order) {
-    return res.status(404).json({ error: "Order not found" });
-  }
+//   if (!order) {
+//     return res.status(404).json({ error: "Order not found" });
+//   }
 
-  res.json(order);
-});
+//   res.json(order);
+// });
 
-app.post("/orders/:id/status", (req, res) => {
-  const order = orders[req.params.id];
+// app.post("/orders/:id/status", (req, res) => {
+//   const order = orders[req.params.id];
 
-  if (!order) {
-    return res.status(404).json({ error: "Order not found" });
-  }
+//   if (!order) {
+//     return res.status(404).json({ error: "Order not found" });
+//   }
 
-  order.status = req.body.status;
+//   order.status = req.body.status;
 
-  res.json(order);
-});
+//   res.json(order);
+// });
+
+
+
+// Long Polling
+// const waiters = new Map();
+
+
+// app.get('/order/:id/updates', (req,res) => {
+//   const id = req.params.id;
+
+//   let orderWaiters = waiters.get(id);
+
+//   if (!orderWaiters) {
+//     orderWaiters = [];
+//     waiters.set(id, orderWaiters);
+//   }
+
+//   orderWaiters.push(res);
+// })
+
+// app.post("/orders/:id/status", (req, res) => {
+//   const id = req.params.id;
+//   const order = orders[id];
+
+//   if (!order) {
+//     return res.status(404).json({
+//       error: "Order not found"
+//     });
+//   }
+
+//   order.status = req.body.status;
+
+//   // Notify anyone waiting
+//   const orderWaiters = waiters.get(id) || [];
+
+//   for (const response of orderWaiters) {
+//     response.json(order);
+//   }
+
+//   waiters.delete(id);
+
+//   res.json(order);
+// });
 
 app.listen(3000, () => {
   console.log("Server listening on :3000");
