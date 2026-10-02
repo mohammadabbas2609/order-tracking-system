@@ -3,12 +3,19 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
+app.use(express.static('client'));
+
 const orders = {
   123: {
     id: 123,
     status: "PLACED"
   }
 };
+
+
+app.get('/', (req,res) => {
+  
+})
 
 app.get("/orders/:id", (req, res) => {
   const order = orders[req.params.id];
